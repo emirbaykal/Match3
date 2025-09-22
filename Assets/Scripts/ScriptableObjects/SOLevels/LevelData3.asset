@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7312db9a3e97478db518c90ddb91ce8c, type: 3}
+  m_Name: LevelData3
+  m_EditorClassIdentifier: 
+  LevelID: 3
+  Rows: 8
+  Columns: 8
+  HasScore: 0
+  HasIceBreak: 1
+  HasMoveLimit: 1
+  TargetScore: 50
+  MoveLimit: 30
+  IceStrength: 3
+  IceTilePositions: []
