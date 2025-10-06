@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using Board.Node;
+using UnityEngine;
+
 namespace Signals.Board
 {
     public class IceTileCountChanged
@@ -13,5 +17,10 @@ namespace Signals.Board
     public class BoardScoreChanged
     {
         public int Score;
+    }
+
+    public class SpawnTile
+    {
+        public Vector2Int TargetPos;
     }
 }

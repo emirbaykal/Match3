@@ -1,19 +1,12 @@
+using Board.Tiles;
 using UnityEngine;
 
 namespace Board.Node
 {
     public class Node : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
+        public Vector2Int currentPosition;
+        public TileController currentTile; 
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
 }

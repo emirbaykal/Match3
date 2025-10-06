@@ -81,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePrefab: {fileID: 3038177641633716819, guid: f886b442dd9f1754ba8f8e73112c3765, type: 3}
   tilePrefab: {fileID: 8920041344376717010, guid: 129686be72a40844ab40b916f20dbf89, type: 3}
+  tilesTransform: {fileID: 2163613576660261887}
 --- !u!114 &7841529080404928311
 MonoBehaviour:
   m_ObjectHideFlags: 0

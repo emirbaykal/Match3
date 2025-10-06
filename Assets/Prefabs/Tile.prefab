@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8366413910423940489}
   - component: {fileID: 8547241838799917394}
   m_Layer: 0
-  m_Name: Ice
+  m_Name: Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +99,8 @@ GameObject:
   - component: {fileID: 8920041344376717010}
   - component: {fileID: 2275625920671185327}
   - component: {fileID: 8824549974999433536}
+  - component: {fileID: 4126345508538294439}
+  - component: {fileID: 857791827799973640}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -134,6 +136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63712a7554c5ab24d8473824c5e8d474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentNode: {fileID: 0}
+  currentPosition: {x: 0, y: 0}
+  tileData:
+    Position: {x: 0, y: 0}
+    TileType: 0
+    Strength: 0
 --- !u!114 &2275625920671185327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,8 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileSprites: {fileID: 100100200, guid: f48a55be4b1a2704b97a0178c83f58b0, type: 3}
-  IceSprites: {fileID: 100100200, guid: 268325527cb564d4d8ff47cffc2505c2, type: 3}
-  Ice: {fileID: 379632417839904501}
+  BarrierSprites: {fileID: 100100200, guid: 696d1fb2616fa3148b432e9678002c30, type: 3}
+  BushSprites: {fileID: 100100200, guid: 3e051d34a1719304a89ea038991a9134, type: 3}
+  tileSprite: {fileID: 8824549974999433536}
+  barrier: {fileID: 379632417839904501}
 --- !u!212 &8824549974999433536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -204,3 +214,61 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4126345508538294439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6525354230615237848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9d13c35bc44746428ded9b71be30b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &857791827799973640
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6525354230615237848}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.06289244}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 4.3093863, y: 4.3792667}
+  m_EdgeRadius: 0

@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "TileInputs",
+    "maps": [
+        {
+            "name": "Tile",
+            "id": "c65e7499-3070-420e-8ea4-02a4b069508f",
+            "actions": [
+                {
+                    "name": "MoveTile",
+                    "type": "Value",
+                    "id": "c3ebcafd-4b08-4842-956f-9e6aed0c1b70",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "27b9dd11-cb9e-475d-99e9-1419185cf14c",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveTile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

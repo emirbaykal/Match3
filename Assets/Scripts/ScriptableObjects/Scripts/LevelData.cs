@@ -13,7 +13,8 @@ namespace ScriptableObjects.Scripts
     public enum TileType
     {
         Normal,
-        Ice
+        Ice,
+        Bush
     }
     
     [CreateAssetMenu(fileName = "LevelData", menuName = "ScriptableObjects/Level Data")]
@@ -23,6 +24,7 @@ namespace ScriptableObjects.Scripts
      
         [Header("Board Data")]
         //Grid Data
+        //KALDIRILACAK
         public int Rows;
         public int Columns;
         public List<TileData> Tiles;

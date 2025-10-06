@@ -62,11 +62,6 @@ namespace UI
             if (data.HasIceBreak)
             {
                 iceCounterGO.SetActive(true);
-                
-                _bus.Fire(new IceTileCountChanged
-                {
-                    RemainingCount = 0
-                });
             }
 
             if (data.HasMoveLimit)
