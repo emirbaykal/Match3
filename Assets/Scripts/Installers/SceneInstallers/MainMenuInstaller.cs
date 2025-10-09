@@ -6,6 +6,7 @@ namespace Installers.SceneInstallers
     {
         public override void InstallBindings()
         {
+            
         }
     }
 }

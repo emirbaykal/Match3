@@ -13,30 +13,28 @@ MonoBehaviour:
   m_Name: LevelData1
   m_EditorClassIdentifier: 
   LevelID: 1
-  Rows: 6
-  Columns: 5
   Tiles:
   - Position: {x: 0, y: 0}
     TileType: 0
-    Strength: 2
+    Strength: 3
   - Position: {x: 0, y: 1}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 0, y: 2}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 0, y: 3}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 0, y: 4}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 1, y: 0}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 1, y: 1}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 1, y: 2}
     TileType: 0
     Strength: 3
@@ -48,10 +46,10 @@ MonoBehaviour:
     Strength: 3
   - Position: {x: 2, y: 0}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 2, y: 1}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 2, y: 2}
     TileType: 0
     Strength: 0
@@ -63,10 +61,10 @@ MonoBehaviour:
     Strength: 3
   - Position: {x: 3, y: 0}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 3, y: 1}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 3, y: 2}
     TileType: 0
     Strength: 0
@@ -78,10 +76,10 @@ MonoBehaviour:
     Strength: 0
   - Position: {x: 4, y: 0}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 4, y: 1}
     TileType: 0
-    Strength: 0
+    Strength: 3
   - Position: {x: 4, y: 2}
     TileType: 0
     Strength: 3
@@ -91,8 +89,8 @@ MonoBehaviour:
   - Position: {x: 4, y: 4}
     TileType: 0
     Strength: 3
-  HasScore: 1
-  HasIceBreak: 1
-  HasMoveLimit: 1
-  TargetScore: 100
+  ActiveGoals:
+  - {fileID: 11400000, guid: c07495bd6b11ec942ba355a701ae530f, type: 2}
+  - {fileID: 11400000, guid: 73c2c7d380890254899f240299995c30, type: 2}
+  TargetScore: 10000
   MoveLimit: 15

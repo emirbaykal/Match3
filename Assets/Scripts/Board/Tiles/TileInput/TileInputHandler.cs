@@ -18,12 +18,8 @@ namespace Board.Tiles.TileInput
 
         private Vector2 _swipeDirection;
         private float _swipeThreshold = 5f;
-
+        
         public static TileInputHandler ActiveTile { get; private set; }
-
-        private void OnDisable()
-        {
-        }
 
         public void OnPointerDown(PointerEventData eventData)
         {

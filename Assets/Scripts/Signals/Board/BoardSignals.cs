@@ -9,12 +9,16 @@ namespace Signals.Board
         public int RemainingCount;
     }
 
+    public class BushTileCountChanged
+    {
+        public int RemainingCount;
+    }
     public class TileMoveCountChanged
     {
         public int MoveCount;
     }
 
-    public class BoardScoreChanged
+    public class ScoreChanged
     {
         public int Score;
     }

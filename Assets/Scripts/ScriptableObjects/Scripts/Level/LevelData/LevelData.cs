@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ScriptableObjects.Scripts
+namespace ScriptableObjects.Scripts.Level.LevelData
 {
     [System.Serializable]
     public class TileData
@@ -17,23 +17,19 @@ namespace ScriptableObjects.Scripts
         Bush
     }
     
-    [CreateAssetMenu(fileName = "LevelData", menuName = "ScriptableObjects/Level Data")]
+    
+    [CreateAssetMenu(fileName = "LevelData", menuName = "Scriptable Objects/Level Data")]
     public class LevelData : ScriptableObject
     {
         public int LevelID;
      
         [Header("Board Data")]
         //Grid Data
-        //KALDIRILACAK
-        public int Rows;
-        public int Columns;
         public List<TileData> Tiles;
+
+        [Header("Level Goal")] 
         
-        [Header("Level Goal")]
-        //Level Type
-        public bool HasScore;
-        public bool HasIceBreak;
-        public bool HasMoveLimit;
+        public List<GoalTypeData> ActiveGoals;
         
         [Header("Score Goal")]
         //Params

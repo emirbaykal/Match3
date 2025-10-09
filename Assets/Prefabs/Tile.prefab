@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: c430f75636aca6442ae7ced8622eea48, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63712a7554c5ab24d8473824c5e8d474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentNode: {fileID: 0}
   currentPosition: {x: 0, y: 0}
   tileData:
     Position: {x: 0, y: 0}
@@ -154,9 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cea735d51cf3754985ed9e434872120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TileSprites: {fileID: 100100200, guid: f48a55be4b1a2704b97a0178c83f58b0, type: 3}
-  BarrierSprites: {fileID: 100100200, guid: 696d1fb2616fa3148b432e9678002c30, type: 3}
-  BushSprites: {fileID: 100100200, guid: 3e051d34a1719304a89ea038991a9134, type: 3}
+  tileSprites: {fileID: 100100200, guid: f48a55be4b1a2704b97a0178c83f58b0, type: 3}
+  barrierSprites: {fileID: 100100200, guid: 696d1fb2616fa3148b432e9678002c30, type: 3}
   tileSprite: {fileID: 8824549974999433536}
   barrier: {fileID: 379632417839904501}
 --- !u!212 &8824549974999433536

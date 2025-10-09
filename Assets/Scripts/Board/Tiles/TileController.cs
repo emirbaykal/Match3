@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using Board.Tiles.TileInput;
+using DG.Tweening;
+using ScriptableObjects.Scripts.Level.LevelData;
 using UnityEngine;
 using Zenject;
-using TileData = ScriptableObjects.Scripts.TileData;
 
 namespace Board.Tiles
 {
@@ -13,31 +15,66 @@ namespace Board.Tiles
         private TileView _tileView;
         private TileModel _tileModel; 
         private BoardController _boardController;
-        private SignalBus _bus;
-
         public TileModel TileModel => _tileModel;
         public TileView TileView => _tileView;
         
         [Inject]
-        public void Construct(SignalBus bus, TileModel tileModel, BoardController boardController)
+        public void Construct(TileModel tileModel, BoardController boardController)
         {
-            _bus = bus;
             _tileModel = tileModel;
             _boardController = boardController;
             
             _tileView = GetComponent<TileView>();
         }
         
+        //SETTER FUNCTION
+        
+        private void InitializeRandomTileData()
+        {
+            var tileModel = _tileModel;
+            
+            int colorID = _tileView.SetRandomSprite();
+            
+            tileModel.SetColorID(colorID);
+            tileModel.SetStrength(tileData.Strength);
+            tileModel.SetType(tileData.TileType);
+            
+            _tileView.SetTileType(tileData, tileModel.GetStrength());
+        }
+        
+        private void SetPositionOnGrid(Vector2Int position)
+        {
+            var tileTransform = transform;
+            var bounds = _boardController.BoardModel.GetBoundsFromLevel();
+            
+            Vector2Int spawnPos = new Vector2Int(position.x, bounds.MaxY + 1);
+            tileTransform.position = new Vector3(spawnPos.x, spawnPos.y);
+            
+            currentPosition = position;
+            tileTransform.parent = _boardController.tilesTransform;
+
+            UnAsyncTileMove(position);
+        }
+        
+        
+        //GETTER
+        public int GetColorID()
+        {
+            return _tileModel.ColorID; 
+        }
+        
+        //INTERACTION
+        
+        //It is a function that runs when the motion input is triggered.
         public void OnMove(Vector2Int dir)
         {
             if (TileInputHandler.ActiveTile != gameObject.GetComponent<TileInputHandler>() 
                 || _boardController.BoardModel.IsBarrier(currentPosition))
                 return;
-            
             Vector2Int movePos = _tileModel.GetMovePosition(currentPosition, dir);
 
             if (!_boardController.BoardModel.IsWithinBounds(movePos) || _boardController.BoardModel.IsBarrier(movePos))
-                _tileView.WrongMoveAnimation();
+                _tileView.TileShakeAnimation();
             else
             {
                 TileController targetTile = _boardController.BoardModel.GetTile(movePos);
@@ -46,51 +83,37 @@ namespace Board.Tiles
             }
         }
         
-        public void TileMoveTrigger(Vector2Int targetPos)
-        {
-            _tileView.MoveAnimation(targetPos);
-        }
         
+        //If there are barriers (ice, bushes) around exploding tiles,
+        //they reduce their health.  
         public void DamageBarrier(int amount)
         {
             _tileModel.ApplyDamage(tileData, amount);
-            _tileView.ChangeTileType(tileData, _tileModel.GetStrength());
-        }
-        public void InitializeRandomTile()
-        {
-            int colorID = _tileView.SetRandomSprite();
-            _tileModel.SetColorID(colorID);
-        }
-        public int GetColorID()
-        {
-            return _tileModel.ColorID; 
+            _tileView.SetTileType(tileData, _tileModel.GetStrength());
         }
         
-        private void SetPositionOnGrid(Vector2Int position)
+        //ASYNC
+        
+        //TILE MOVE ANIMATIONS TRIGGER
+        public async Task AsyncTileMove(Vector2Int movePos)
         {
-            var tileTransform = transform;
-            
-            Vector2Int spawnPos = new Vector2Int(position.x, _boardController.BoardModel.Bounds.MaxY + 1);
-            tileTransform.position = new Vector3(spawnPos.x, spawnPos.y);
-            
-            currentPosition = position;
-            tileTransform.parent = _boardController.tilesTransform;
-
-            TileMoveTrigger(position);
-            
+            await _tileView.MoveAnimationAsync(movePos);
+        }
+        public void UnAsyncTileMove(Vector2Int targetPos)
+        {
+            _tileView.MoveAnimation(targetPos);
         }
         
         public class TilePool : MonoMemoryPool<TileData, TileController>
         {
             protected override void Reinitialize(TileData tileData,TileController item)
             {
-                
+                DOTween.Kill(item.transform);
                 item.tileData = tileData;
-                item.InitializeRandomTile();
+                
+                item.InitializeRandomTileData();
                 
                 //view and strength
-                item._tileModel.SetStrength(tileData.Strength);
-                item._tileView.ChangeTileType(tileData, item._tileModel.GetStrength());
                 
                 //Position
                 Vector2Int targetPos = tileData.Position;
@@ -103,10 +126,12 @@ namespace Board.Tiles
                 if (item._boardController != null)
                 {
                     var boardModel = item._boardController.BoardModel;
-                    boardModel.UnassignTileFromNode(item.currentPosition, item);
+                    boardModel.UnAssignTileFromNode(item.currentPosition, item);
                 }
                 
                 //Reset view
+                DOTween.Kill(item.transform);
+                
                 item.currentPosition = Vector2Int.zero;
 
                 item.gameObject.SetActive(false);

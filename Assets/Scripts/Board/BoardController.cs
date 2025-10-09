@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
+using System.Linq;
 using Board.Tiles;
-using DG.Tweening;
-using ScriptableObjects.Scripts;
+using ScriptableObjects.Scripts.Level.LevelData;
 using Signals.Board.Tile;
 using Signals.Managers;
 using UnityEngine;
@@ -30,9 +28,7 @@ namespace Board
         private Node.Node nodePrefab;
         
         public Transform tilesTransform;
-
-        public int IceTileCount => _boardModel.IceTileCount;
-    
+        
         [Inject]
         public void Construct(SignalBus bus, DiContainer container, BoardModel boardModel , LevelData levelData , TileController.TilePool tilePool)
         {
@@ -58,10 +54,13 @@ namespace Board
             
             Initialize();
         }
+        
+        //LEVEL DATA INITIALIZE
         private void Initialize()
         {
-            Vector3 boardSize = new Vector3(_levelData.Columns,
-                _levelData.Rows);
+            BoardModel.BoardBounds bounds = BoardModel.GetBoundsFromLevel();
+            Vector3 boardSize = new Vector3(bounds.MaxX + 1,
+                bounds.MaxY + 1);
             
             UpdateBackgroundPos(boardSize);
             
@@ -69,30 +68,34 @@ namespace Board
             
             NodeGenerator();
             
-            _bus.Fire(new LevelInitialized
-            {
-                LevelData = _levelData,
-                BoardModel = BoardModel
-            });
+           _bus.Fire(new LevelInitialized
+           {
+               LevelData = _levelData,
+               BoardModel = BoardModel
+           });
         }
         
+        //Board Background Values Settings
         private void UpdateBackgroundPos(Vector3 boardSize)
         {
-            gameObject.transform.position = _boardModel.BoardCenterPosition
+            gameObject.transform.position = _boardModel.GetBoardCenterPosition
                 ((int)boardSize.x, (int)boardSize.y);
         
             _boardView.BoardBackground.transform.localScale =
                 new Vector2( boardSize.x * _boardView._nodeSize, 
                     boardSize.y * _boardView._nodeSize);
         }
+        
+        //Focus on the camera center
         private void UpdateCameraPos(Vector3 boardSize)
         {
-            _boardView.FocusCameraOnBoard(_boardModel.BoardCenterPosition
-                (_levelData.Columns, _levelData.Rows));
+            _boardView.FocusCameraOnBoard(_boardModel.GetBoardCenterPosition
+                ((int)boardSize.x,(int)boardSize.y));
         
             _boardView.UpdateCameraSize(boardSize);
         }
     
+        //Creates the nodes on the board
         private void NodeGenerator()
         {
             foreach (var tileData in _levelData.Tiles)
@@ -102,23 +105,24 @@ namespace Board
                     Quaternion.identity, 
                     _boardView.NodesRoot);
 
-                 _boardModel.AssignNode(tileData.Position, node);
+                 _boardModel.SetNode(tileData.Position, node);
             }
         }
         
-        public void MatchingTileDestroyer()
+        //Matching tiles are collected here,
+        //and the tiles in each group are sent to the pool one by one.
+        
+        //Afterwards, the top tiles are slid down
+        //using the “FallingTiles” function.
+        private void MatchingTileDestroyer()
         {
             var matches = _boardModel.MatchControl();
 
-            foreach (var group in matches)
+            foreach (var tile in matches.SelectMany(group => group))
             {
-                foreach (var tile in group)
-                {
-                    _tilePool.Despawn(tile);
-                }
+                _tilePool.Despawn(tile);
             }
             _boardModel.FallingTiles();
-            
         }
     }
 }

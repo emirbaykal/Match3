@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Signals.Board;
 using Zenject;
 
@@ -11,9 +10,8 @@ namespace Installers.SceneInstallers.Level_Installers
             //BASE LEVEL INSTALLER
             base.InstallBindings();
             
-            Container.DeclareSignal<IceTileCountChanged>();
-            Container.DeclareSignal<TileMoveCountChanged>();
-            Container.DeclareSignal<BoardScoreChanged>();
+            Container.DeclareSignal<ScoreChanged>();
+            
         }
     }
 }

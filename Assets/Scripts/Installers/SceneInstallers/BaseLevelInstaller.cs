@@ -13,20 +13,29 @@ namespace Installers.SceneInstallers
     {
         [SerializeField] private TileController tilePrefab;
         [SerializeField] private BoardController boardPrefab;
+        [SerializeField] private GameObject goalPanel;
         public override void InstallBindings()
         {
-            SignalBusInstaller.Install(Container);
-
             Container.DeclareSignal<LevelInitialized>();
+            
             Container.DeclareSignal<MatchControl>();
-            Container.DeclareSignal<SpawnTile>();
             Container.DeclareSignal<TileMoveCompleted>();
+            Container.DeclareSignal<TileMoveCountChanged>();
+            Container.DeclareSignal<SpawnTile>();
+
+            Container.DeclareSignal<LevelFailed>();
+            Container.DeclareSignal<LevelSuccessful>();
+            
             Container.Bind<TileInputs>().AsSingle();
             Container.Bind<TileModel>().AsTransient();
 
+            
+            
             Container.BindMemoryPool<TileController, TileController.TilePool>()
                 .WithInitialSize(16)
                 .FromComponentInNewPrefab(tilePrefab);
+            
+            
             
             Container.BindInterfacesAndSelfTo<TileGenerator>().AsSingle();
             

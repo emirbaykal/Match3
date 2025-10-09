@@ -1,4 +1,4 @@
-using ScriptableObjects.Scripts;
+using ScriptableObjects.Scripts.Level.LevelData;
 using UnityEngine;
 using Zenject;
 

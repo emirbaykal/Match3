@@ -1,11 +1,15 @@
-using Board;
-using ScriptableObjects.Scripts;
-
 namespace Signals.Managers
 {
-    public class LevelInitialized
+    public class RequestLoadLevel
     {
-        public LevelData LevelData;
-        public BoardModel BoardModel;
+        public int LevelIndex;
+
+        public RequestLoadLevel(int levelIndex)
+        {
+            LevelIndex = levelIndex;
+        }
     }
+    public class RequestNextLevel { }
+    public class RequestRetryLevel { }
+    public class RequestMainMenu { }
 }
